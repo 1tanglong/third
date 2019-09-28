@@ -1,0 +1,675 @@
+1：#include <stdio.h>
+
+
+int main()
+
+
+{   char c;                            	/*定义变量c、a、f */
+
+
+    int a;
+
+
+    float f;
+
+
+    scanf("%c%d%f",&c,&a,&f);             	/*输入变量c、a、f的值*/
+
+
+    a=a+c;
+
+
+    f=f+2*a;
+
+
+    printf("c=%c a=%d  f=%f\n",c,a,f);      	/*输出变量c、a、f的值*/
+
+
+    return 0;
+
+
+}
+2：#include <iostream>
+
+
+using namespace std;    		//using声明使用一个完整的名字空间std，C++中提供的名字
+
+
+    						//空间std涵盖了所有标准C++的定义和声明
+
+
+namespace one          		//定义一个名字空间one，里面有1个常量M和1个变量inf
+
+
+{   const int M=200;
+
+
+    int inf=10;
+
+
+}                   		//后面未加分号
+
+
+namespace two         		//定义一个名字空间two，里面有2个变量：x和inf
+
+
+{   int x;
+
+
+    int inf=-100 ;
+
+
+}                   		//后面未加分号
+
+
+using namespace one ;   		//方法1：using声明使用一个完整的名字空间one
+
+
+int  main()
+
+
+{   using two::x ;       		//方法3：using声明仅使用名字空间two中的内容x
+
+
+    x=-100 ;            		//直接访问，相当于two::x=-100;
+
+
+    cout<<inf<<endl;    		//using声明使用了整个one，其所有成员直接访问
+
+
+    cout<<M<<endl;
+
+
+    two::inf*=2;         		//方法2：使用名字空间名::局部内容名操作未使用using声明的内容
+
+
+    cout<<two::inf<<endl; 	//同样是two中的内容，但是访问方式不一样
+
+
+    cout<<x<<endl ;      	//已用using声明了two中内容x，可以直接访问
+
+
+    return  0;
+
+
+}
+3．1：//example2_05.cpp：局部变量随用随定义及作用域问题示例。
+
+
+#include <iostream>
+
+
+#include <iomanip>
+
+
+using namespace std;             //使用C++的标准名字空间
+
+
+int main()
+
+
+{
+
+
+	int arr[3]={0},i=123;        //定义第一个局部变量i,作用域不含第二个i所在域
+
+
+	cout<<"i="<<i<<endl;        //输出第一个i的值为123
+
+
+
+
+
+    {                           //该语句块内,有同名的局部变量i,则第一个i无作用
+
+
+		for (int i=0;i<2;i++)      //定义第二个局部变量i，作用域仅限于该语句块
+
+
+           arr[i]=(i+5)*10+3;
+
+
+        cout<<"i="<<i<<endl;     //输出第二个局部变量i的值2,第一个i不起作用
+
+
+		arr[2]++;
+
+
+		cout<<"i="<<i<<endl;    //输出第二个局部变量i的值2,第一个i不起作用
+
+
+    }                           //第二个局部变量i的作用域到此结束
+
+
+
+
+
+	cout<<"i="<<i<<endl;        //输出的为第一个i的值123
+
+
+    int sum=0 ;                //定义局部变量sum,随用随定义
+
+
+    for (i=0;i<3; i++)            //第一个i在起作用
+
+
+        sum+=arr[i];
+
+
+    cout<<"i="<<i<<endl;        //输出的为第一个i的值3
+
+
+    for (i=0;i<3 ;i++)       	   //第一个i作为循环控制变量
+
+
+        cout<<setw(4)<<arr[i];   //setw控制格式,后面按每个元素占4列输出
+
+
+    cout<<endl;
+
+
+    cout<<"i="<<i<<",sum="<<sum<<endl;     //输出第一个i的值3以及sum的值117
+
+
+	return 0;
+
+
+}
+3.2：//example2_05.cpp：局部变量随用随定义及作用域问题示例。
+
+
+#include <iostream>
+
+
+#include <iomanip>
+
+
+using namespace std;             //使用C++的标准名字空间
+
+
+int main()
+
+
+{
+
+
+	int arr[3]={0},i=123;        //定义第一个局部变量i,作用域不含第二个i所在域
+
+
+	cout<<"i="<<i<<endl;        //输出第一个i的值为123
+
+
+
+
+
+    {                           //该语句块内,有同名的局部变量i,则第一个i无作用
+
+
+		for (int i=0;i<2;i++)      //定义第二个局部变量i，作用域仅限于该语句块
+
+
+           arr[i]=(i+5)*10+3;
+
+
+        cout<<"i="<<i<<endl;     //输出第二个局部变量i的值2,第一个i不起作用
+
+
+		arr[2]++;
+
+
+		cout<<"i="<<i<<endl;    //输出第二个局部变量i的值2,第一个i不起作用
+
+
+    }                           //第二个局部变量i的作用域到此结束
+
+
+
+
+
+	cout<<"i="<<i<<endl;        //输出的为第一个i的值123
+
+
+    int sum=0 ;                //定义局部变量sum,随用随定义
+
+
+    for (i=0;i<3; i++)            //第一个i在起作用
+
+
+        sum+=arr[i];
+
+
+    cout<<"i="<<i<<endl;        //输出的为第一个i的值3
+
+
+    for (i=0;i<3 ;i++)       	   //第一个i作为循环控制变量
+
+
+        cout<<setw(4)<<arr[i];   //setw控制格式,后面按每个元素占4列输出
+
+
+    cout<<endl;
+
+
+    cout<<"i="<<i<<",sum="<<sum<<endl;     //输出第一个i的值3以及sum的值117
+
+
+	return 0;
+
+
+}
+4：//example2_06.cpp：域解析符使全局变量真正具有全局作用域
+
+
+#include <iostream>
+
+
+#include <iomanip>
+
+
+using namespace std;                   //使用C++的标准名字空间
+
+
+int sum=5000; 		                 //定义全局变量sum
+
+
+int main()
+
+
+{
+
+
+int arr[3]={10,20,30};
+
+
+    {                                 //一个小程序块的开始
+
+
+		  int i,sum=0;                     //定义局部变量sum
+
+
+		  for (i=0;i<3;i++)
+
+
+           sum+=arr[i];                  //求和，结果存于局部变量sum中
+
+
+		  cout<<"sum="<<sum<<endl;       //输出局部变量sum的值
+
+
+       ::sum+=sum;	                   //通过域解析符在同名局部变量的作用域内对全局sum访问
+
+
+		  cout<<"全局sum="<<::sum<<endl;  //输出全局sum变量的值
+
+
+	}                                //小程序块的结束
+
+
+	   sum*=2;                            //这是全局sum,因为局部变量sum的作用域已结束
+
+
+    cout<<"sum="<<sum<<endl;           //输出全局sum变量的值
+
+
+    int sum=200;                        //定义另一个局部变量sum
+
+
+    cout<<"sum="<<sum<<endl;           //输出刚定义的局部变量sum的值
+
+
+    ::sum+=sum;           	          //通过域解析符使全局sum在同名局部sum的作用域可见
+
+
+    cout<<"全局sum="<<::sum<<endl;     //输出全局sum变量的值
+
+
+return 0;
+
+
+}
+5：//example2_07.cpp：形式参数带默认参数值的函数定义及调用示例
+
+
+#include <iostream>
+
+
+using namespace std;
+
+
+void Fun(int i,int j=5,int k=10) ;  //原型声明中形参j和k分别指定了默认参数值5和10
+
+
+int main()
+
+
+{
+
+
+	Fun(20) ;                    	//实际参数个数少于形式参数，20与i对应,至少有一个实参
+
+
+    								//形式参数j和k分别使用默认参数值5和10
+
+
+    Fun(20,30) ;                 	//形式参数k使用默认参数值10
+
+
+    Fun(20,30,40);               	//实际参数个数等于形参个数，都不使用默认参数值
+
+
+    return 0;
+
+
+}
+
+
+void Fun(int i,int j,int k)         //原型中已指定了默认参数值，在定义的首部不能再指定
+
+
+{
+
+
+	cout<<i<<"  "<<j<<"  "<<k<<endl;
+
+
+}
+6：//example2_08_1.cpp: 用宏定义实现两数相乘
+
+
+#include <iostream>
+
+
+using namespace std;
+
+
+#define  Multiply(x,y)  x*y   //注意:此处x和y两边未加括号
+
+
+int  main()
+
+
+{
+
+
+    int a=Multiply(3+4,2+3);  //展开后为:int a=3+4*2+3
+
+
+    cout<<"a="<<a<<endl;
+
+
+    return 0;
+
+
+}
+7：//example2_09.cpp：重载函数示例
+
+
+#include <iostream>
+
+
+using namespace std;
+
+
+int square(int x)                         	//重载函数的第1版本，int型参数
+
+
+{   return x*x;  }
+
+
+float square(float x )                       	//重载函数的第2版本，float型参数
+
+
+{   return x*x;  }
+
+
+double square(double x=1.5 )                 	//重载函数的第3版本，double型参数
+
+
+{   return x*x;  }
+
+
+int main()
+
+
+{  cout<<"square()="<<square()<<endl;       	//调用第3版本函数，用默认值，结果为2.25
+
+
+   cout<<"square(10)="<<square(10)<<endl;    	//调用第1版本函数，结果为100
+
+
+   cout<<"square(2.5f)="<<square(2.5f)<<endl;  	//调用第2版本函数，结果为6.25
+
+
+   cout<<"square(1.1)="<<square(1.1)<<endl ;   	//调用第3版本函数，结果为1.21
+
+
+   return 0;
+
+
+}
+8：//example2_10.cpp：引用的声明及使用示例
+
+
+#include <iostream>
+
+
+using namespace std;
+
+
+int x=5,y=10;
+
+
+int &r=x;                                     	//定义一个引用r作为变量x的别名
+
+
+void print()                                    	//定义一个专门用于输出的函数
+
+
+{    cout<<"x="<<x<<" y="<<y<<" r="<<r<<endl ;  	//输出x、y、r的值
+
+
+     cout<<"Address of x "<<&x<<endl;        	//输出变量x的内存地址
+
+
+     cout<<"Address of y "<<&y<<endl;          	//输出变量y的内存地址
+
+
+     cout<<"Address of r "<<&r<<endl ;       		//输出引用r的内存地址
+
+
+}
+
+
+int main()
+
+
+{
+
+
+print();                                   	//第1次调用输出函数
+
+
+    r=y ;                                     	//相当于x=y，将y的值赋给x
+
+
+    										//而不是r改变为变量y的别名
+
+
+    y=100 ;                                  	//对y重新赋值不会影响引用r的值
+
+
+    print() ;                                  	//再次调用输出函数
+
+
+x=200;                                     //对x重新赋值, r随之改变,不会影响变量y的值
+
+
+print() ;                                  	//再次调用输出函数
+
+
+return 0;
+
+
+}
+9：//example2_11.cpp：用引用作参数修改对应实际参数变量的值
+
+
+#include <iostream>
+
+
+using namespace std;
+
+
+void swap(int &x,int &y)                	//调用之初参数传递就使得引用参数成为
+
+
+  								//本次调用对应实际参数变量的别名
+
+
+{   int t=x;                         	//这里的引用x和y分别是两个实际参数变量
+
+
+    x=y;                            	//的别名，因此这3条语句实际上实现了
+
+
+    y=t;                            	//实际参数变量值的互换
+
+
+}
+
+
+int main()
+
+
+{   int a=3,b=5,c=10,d=20;
+
+
+    cout<<"a="<<a<<"  b="<<b<<endl ; 	//输出交换前的a、b值
+
+
+    swap(a,b);                       	//调用函数，参数传递相当于执行了
+
+
+    								//int &x=a; int &y=b;使引用参数获得了初值
+
+
+    cout<<"a="<<a<<"  b="<<b<<endl; 	//输出交换后的a、b值
+
+
+    cout<<"c="<<c<<"  d="<<d<<endl; 	//输出交换前的c、d值
+
+
+    swap(c,d) ;                      	//调用函数，参数传递相当于执行了
+
+
+    								//int &x=c; int &y=d; 使引用参数获得了初值
+
+
+    cout<<"c="<<c<<"  d="<<d<<endl; 	//输出交换后的c、d值
+
+
+    return 0;
+
+
+}
+10：//example2_13.cpp: 引用返回函数的定义及三种调用示例
+
+
+#include <iostream>
+
+
+using namespace std;
+
+
+int& Fun(const int &x,int &y,int z)   //返回引用的函数
+
+
+{   z++;                       //对值形式参数的修改不会影响对应实际参数变量
+
+
+    y=x+y+z;                   //通过修改y改变第2个实际参数变量的值
+
+
+    return y;                    //返回的是引用参数，实际上是对应实参变量
+
+
+}
+
+
+int main()
+
+
+{
+
+
+	int a=1,b=2,c=3,d=0;
+
+
+    cout<<"a="<<a<< " b="<<b<<" c="<<c<<" d="<<d<<endl;
+
+
+	Fun(a,b,c);               //作为独立的函数调用语句使用，返回值被忽略
+
+
+	cout<<"a="<<a<< " b="<<b<<" c="<<c<<" d="<<d<<endl;
+
+
+    d=Fun(a,b,c);             //作为表达式中的一个运算对象使用，返回值参与运算
+
+
+    cout<<"a="<<a<< " b="<<b<<" c="<<c<<" d="<<d<<endl;
+
+
+	Fun(a,b,c)=20;            //左值调用，引用返回的函数特有方式，相当于b=20；
+
+
+    cout<<"a="<<a<< " b="<<b<<" c="<<c<<" d="<<d<<endl;
+
+
+    return 0;
+
+
+}
+11：//example2_14.cpp：void类型指针用法示例
+
+
+#include <iostream>
+
+
+using namespace std;
+
+
+int main( )
+
+
+{
+
+
+    void *vp;
+
+
+    char c='A';
+
+
+    short int x=97;
+
+
+    vp=&c;             		//char类型的指针可以直接赋值给void类型的指针变量
+
+
+    cout<<*(char *)vp<<"  "<<*(short int*)vp<<endl;
+
+
+    vp=&x;             		//short int类型的指针可以直接赋值给void类型的指针变量
+
+
+    						//需要显式类型转换输出void类型指针所指向的内容
+
+
+    cout<<*(short int *)vp<<"  "<<*(char*)vp<<endl;
+
+
+    return  0;
+
+
+}
